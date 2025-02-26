@@ -1,15 +1,20 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import injectContext from "./store/appContext.js";
+// Custom component
 import ScrollToTop from "./component/ScrollToTop.jsx";
 import { BackendURL } from "./component/BackendURL.jsx";
-
+import { Navbar } from "./component/Navbar.jsx";
+import { Footer } from "./component/Footer.jsx";
+// Custom pages or views
 import { Home } from "./pages/Home.jsx";
 import { Demo } from "./pages/Demo.jsx";
 import { Single } from "./pages/Single.jsx";
-import injectContext from "./store/appContext";
+import { Contact } from "./pages/Contact.jsx";
+import { EditContact } from "./pages/EditContact.jsx";
+import { CreateContact } from "./pages/CreateContact.jsx";
+import { CardsList } from "./pages/CardsList.jsx";
 
-import { Navbar } from "./component/Navbar.jsx";
-import { Footer } from "./component/Footer.jsx";
 
 //create your first component
 const Layout = () => {
@@ -28,6 +33,10 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<Contact />} path="/contact" />
+                        <Route element={<EditContact />} path="/editcontact" />
+                        <Route element={<CreateContact />} path="/createcontact" />
+                        <Route element={<CardsList />} path="/cardslist" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
