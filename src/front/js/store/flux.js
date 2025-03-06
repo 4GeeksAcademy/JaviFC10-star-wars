@@ -18,24 +18,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 			starWarsBaseUrl: 'https://www.swapi.tech/api',
 			user: 'agenda-javi',
 			contacts: [],
+			currentContact: {},
 			characters: []
 		},
 		actions: {
 			// CRUD Contacts
-			createContacts: async () => {
+			createContacts: async (newContact) => {
 				const uri = `${getStore().baseUrl}/${getStore().user}/contacts`;
-				const dataToSend = {};
 				const options = {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(dataToSend)
+					body: JSON.stringify(newContact) // Enviar los datos correctos
 				};
 				const response = await fetch(uri, options);
 				if (!response.ok) {
 					console.log('Error: ', response.status, response.statusText)
-					return
+					return false;
 				};
-				getActions().getContacts();
+				console.log('Contacto añadido correctamente')
+				await getActions().getContacts();
+				return true
 			},
 			getContacts: async () => {
 				const uri = `${getStore().baseUrl}/${getStore().user}/contacts`;
@@ -51,33 +53,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(data);
 				setStore({ contacts: data.contacts })
 			},
-			updateContacts: async () => {
-				const uri = `${getStore().baseUrl}/${getStore().user}/contacts/id`;
-				const dataToSend = {};
+			updateContacts: async (id, updatedContact) => {
+				const uri = `${getStore().baseUrl}/${getStore().user}/contacts/${id}`;
 				const options = {
 					method: 'PUT',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(dataToSend)
+					body: JSON.stringify(updatedContact)
 				};
 				const response = await fetch(uri, options);
 				if (!response.ok) {
 					console.log('Error: ', response.status, response.statusText);
-					return
+					return false;
 				};
-				getActions().getContacts();
+				await getActions().getContacts();
+				return true;
 			},
-			deleteContacts: async () => {
-				const uri = `${getStore().baseUrl}/${getStore().user}/contacts/id`;
+			deleteContacts: async (id) => { 
+				const uri = `${getStore().baseUrl}/${getStore().user}/contacts/${id}`;
 				const options = {
 					method: 'DELETE'
 				};
 				const response = await fetch(uri, options);
 				if (!response.ok) {
 					console.log('Error: ', response.status, response.statusText);
-					return
-				};
-				getActions().getContacts();
+					return false;
+				}
+				await getActions().getContacts();
+				return true;
 			},
+			
 
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
@@ -124,6 +128,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log('Soy characters', data);
 				setStore({ characters: data.results })
 			},
+
+			// Funciones vistas en clase
+			setCurrentContact: (contact) => { setStore({ currentContact: contact }) }
 		}
 	};
 };

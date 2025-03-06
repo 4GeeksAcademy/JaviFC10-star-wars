@@ -1,23 +1,38 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../store/appContext.js";
+import { useNavigate } from "react-router-dom";
 
-export const EditContact = ({ contact, setSelectedContact }) => {
-//     const [updatedContact, setUpdatedContact] = useState({ ...contact });
+export const EditContact = () => {
+    const { store, actions } = useContext(Context);
+    const edited = store.currentContact;
+    const [name, setName] = useState(edited.name);
+    const [phone, setPhone] = useState(edited.phone);
+    const [address, setAddress] = useState(edited.address);
+    const [mail, setMail] = useState(edited.mail);
+    const navigate = useNavigate();
 
-//     const handleUpdate = async () => {
-//         const uri = `https://playground.4geeks.com/contact/agendas/javi/contacts/${contact.id}`;
-//         const options = {
-//             method: 'PUT',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify(updatedContact)
-//         };
+    useEffect(() => {
+        if (edited) {
+            setName(edited.name || "");
+            setPhone(edited.phone || "");
+            setAddress(edited.address || "");
+            setMail(edited.mail || "");
+        }
+    }, [edited]);
 
-//         const response = await fetch(uri, options);
-//         if (!response.ok) {
-//             console.log('Error:', response.status, response.statusText);
-//             return;
-//         }
-//         setSelectedContact(null);
-//     };
+    const handleUpdate = async () => {
+        const updatedContact = { name, phone, address, mail };
+
+        const success = await actions.updateContacts(edited.id, updatedContact);
+
+        if (success) {
+            navigate('/contact');
+        } else {
+            console.error("No se pudo actualizar el contacto.");
+        }
+    };
+
+
 
     return (
         <div className="d-flex justify-content-center">
@@ -26,23 +41,23 @@ export const EditContact = ({ contact, setSelectedContact }) => {
                 <form>
                     <div className="mb-3">
                         <label className="form-label">Nombre</label>
-                        <input type="text" className="form-control" placeholder="Ingrese el nuevo nombre" />
+                        <input type="text" className="form-control" placeholder="Ingrese el nuevo nombre" value={name} onChange={(event) => setName(event.target.value)} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Teléfono</label>
-                        <input type="text" className="form-control" placeholder="Ingrese el nuevo teléfono" />
+                        <input type="text" className="form-control" placeholder="Ingrese el nuevo teléfono" value={phone} onChange={(event) => setPhone(event.target.value)} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Dirección</label>
-                        <input type="text" className="form-control" placeholder="Ingrese la nueva dirección" />
+                        <input type="text" className="form-control" placeholder="Ingrese la nueva dirección" value={address} onChange={(event) => setAddress(event.target.value)} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Correo Electrónico</label>
-                        <input type="email" className="form-control" placeholder="Ingrese el nuevo correo electrónico" />
+                        <input type="email" className="form-control" placeholder="Ingrese el nuevo correo electrónico" value={mail} onChange={(event) => setMail(event.target.value)} />
                     </div>
                     <div className="d-flex justify-content-between">
-                        <button type="button" className="btn btn-secondary">Cancelar</button>
-                        <button type="submit" className="btn btn-primary">Guardar Cambios</button>
+                        <button type="button" className="btn btn-secondary" onClick={() => { navigate('/contact') }}>Cancelar</button>
+                        <button type="button" className="btn btn-primary" onClick={handleUpdate}>Guardar Cambios</button>
                     </div>
                 </form>
             </div>
@@ -50,5 +65,3 @@ export const EditContact = ({ contact, setSelectedContact }) => {
 
     );
 };
-
-
