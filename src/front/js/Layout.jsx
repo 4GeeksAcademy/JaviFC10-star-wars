@@ -13,8 +13,11 @@ import { Single } from "./pages/Single.jsx";
 import { Contact } from "./pages/Contact.jsx";
 import { EditContact } from "./pages/EditContact.jsx";
 import { CreateContact } from "./pages/CreateContact.jsx";
-import { CardsList } from "./pages/CardsList.jsx";
-
+import { Characters } from "./pages/Characters.jsx";
+import { StarShips } from "./pages/StarShips.jsx";
+import { Planets } from "./pages/Planets.jsx";
+import { ItemDetails } from "./pages/ItemDetails.jsx";
+import { Login } from "./pages/Login.jsx";
 
 //create your first component
 const Layout = () => {
@@ -36,7 +39,11 @@ const Layout = () => {
                         <Route element={<Contact />} path="/contact" />
                         <Route element={<EditContact />} path="/editcontact" />
                         <Route element={<CreateContact />} path="/createcontact" />
-                        <Route element={<CardsList />} path="/cardslist" />
+                        <Route element={<Characters />} path="/characters" />
+                        <Route element={<StarShips />} path="/starships" />
+                        <Route element={<Planets />} path="/planets" />
+                        <Route element={<ItemDetails />} path="/itemdetails" />
+                        <Route element={<Login />} path="/login" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

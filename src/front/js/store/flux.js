@@ -19,7 +19,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: 'agenda-javi',
 			contacts: [],
 			currentContact: {},
-			characters: []
+			characters: [],
+			starships: [],
+			planets: [],
+			favorites: [],
+			currentItemDetails: {}
 		},
 		actions: {
 			// CRUD Contacts
@@ -125,9 +129,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return
 				}
 				const data = await response.json();
-				console.log('Soy characters', data);
 				setStore({ characters: data.results })
 			},
+
+			getStarShips: async () => {
+				const uri = `${getStore().starWarsBaseUrl}/starships`;
+				const options = {
+					method: 'GET'
+				};
+				const response = await fetch(uri, options);
+				if (!response.ok) {
+					console.log('Error: ', response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				setStore({ starships: data.results })
+			},
+
+			getPlanets: async () => {
+				const uri = `${getStore().starWarsBaseUrl}/planets`;
+				const options = {
+					method: 'GET'
+				};
+				const response = await fetch(uri, options);
+				if (!response.ok) {
+					console.log('Error: ', response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				setStore({ planets: data.results })
+			},
+
+			setFavorites: (value) => {
+				if (getStore().favorites.includes(value)) {
+					setStore({ favorites: getStore().favorites.filter((item) => item != value) })
+				} else {
+					setStore({ favorites: [...getStore().favorites, value] })
+				}
+			},
+
+			getItemsDetails: async (uri) => {
+                const options = { method: 'GET'}
+                const response = await fetch( uri, options)
+                if (!response.ok) {
+                    console.log("ERROR: ", response.status, response.statusText)
+                    return
+                }
+                const data = await response.json()
+                setStore({currentItemDetails: data.result.properties})
+            },
 
 			// Funciones vistas en clase
 			setCurrentContact: (contact) => { setStore({ currentContact: contact }) }

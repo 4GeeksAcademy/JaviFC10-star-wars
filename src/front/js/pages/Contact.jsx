@@ -22,39 +22,45 @@ export const Contact = () => {
 
     return (
         <div className="container mt-4">
-            <h1 className="text-center">Contactos</h1>
-            <button className="btn btn-primary mb-3" onClick={() => navigate('/createcontact')}>
-                Crear nuevo contacto
-            </button>
-            <div className="d-flex justify-content-center">
-                <ul className="list-group w-100" style={{ maxWidth: '800px' }}>
+            <h1 className="custom-h1 text-center mb-4 text-neon"><strong>Contacts</strong></h1>   
+            <div className="text-center mb-4">
+                <button className="btn neon-blue" onClick={() => navigate('/createcontact')}>
+                    Crear nuevo contacto
+                </button>
+            </div>
+
+            <div className="row justify-content-center">
+                <div className="col-12 col-md-8">
                     {store.contacts.map((item) => (
-                        <li key={item.id} className="list-group-item bg-light bg-gradient mb-3 d-flex flex-column flex-md-row align-items-center justify-content-between">
-                            <img 
-                                className="rounded mb-2 mb-md-0" 
-                                src={`https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 100) + 1}.jpg`} 
-                                style={{ width: '100px', height: '100px' }} 
-                                alt="RandomUser" 
-                            />
-                            <div className="card-body text-center text-md-start">
-                                <h5 className="card-title">{item.name}</h5>
-                                <p className="card-text">
-                                    <i className="fa fa-phone"></i> {item.phone}<br />
-                                    <i className="fa fa-location-dot"></i> {item.address}<br />
-                                    <i className="fa fa-envelope"></i> {item.email}
+                        <div key={item.id} className="contact-block shadow-lg p-3 mb-3 d-flex flex-row align-items-center">
+                            <div className="col-auto">
+                                <img 
+                                    src={`https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 100) + 1}.jpg`} 
+                                    className="rounded-circle border border-primary shadow contact-img"
+                                    alt="RandomUser" 
+                                />
+                            </div>
+
+                            <div className="col ms-3">
+                                <h5 className="mb-1">{item.name}</h5>
+                                <p className="mb-1">
+                                    <i className="fa fa-phone me-2"></i> {item.phone} <br />
+                                    <i className="fa fa-location-dot me-2"></i> {item.address} <br />
+                                    <i className="fa fa-envelope me-2"></i> {item.email}
                                 </p>
                             </div>
-                            <div className="d-flex justify-content-center">
-                                <button className="btn btn-warning text-white me-2" onClick={() => editContact(item)}>
-                                    <i className="fa fa-edit"></i>
+
+                            <div className="col-auto d-flex flex-column gap-2">
+                                <button className="btn neon-yellow btn-sm" onClick={() => editContact(item)}>
+                                    <i className="fa fa-edit"></i> Editar
                                 </button>
-                                <button type="button" className="btn btn-danger" onClick={() => handleDelete(item.id)}>
-                                    <i className="fa fa-trash"></i>
+                                <button className="btn neon-red btn-sm" onClick={() => handleDelete(item.id)}>
+                                    <i className="fa fa-trash"></i> Eliminar
                                 </button>
                             </div>
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
         </div>
     );
