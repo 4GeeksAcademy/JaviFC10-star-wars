@@ -1,3 +1,339 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
+body {
+    background: url('https://wallpapercave.com/wp/wp12598126.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+
+.custom-navbar {
+    background: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+    z-index: 1050;
+}
+
+
+.text-neon {
+    color: cyan;
+    text-shadow: 0 0 10px cyan, 0 0 20px cyan;
+}
+
+
+.custom-card {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 15px cyan;
+    transition: all 0.3s ease-in-out;
+    width: 18rem; 
+    min-height: 350px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.custom-card .card-body {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.custom-card img {
+    border-radius: 10px 10px 0 0;
+    height: 220px; 
+    object-fit: cover;
+}
+
+
+.custom-card:hover {
+    transform: translateY(-10px); 
+    box-shadow: 0 0 25px cyan, 0 0 50px cyan; 
+}
+
+
+.custom-card-detail {
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    max-width: 800px;
+    margin: auto;
+}
+
+
+.custom-list {
+    background: transparent;
+}
+
+
+.custom-list-item {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+
+.text-neon-detail {
+    color: cyan;
+    text-shadow: 0 0 5px cyan, 0 0 10px cyan;
+}
+
+
+.fixed-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+.neon-blue {
+    color: cyan;
+    border: 2px solid cyan;
+    background-color: transparent;
+    text-shadow: 0 0 10px cyan;
+    box-shadow: 0 0 10px cyan;
+    transition: all 0.3s ease-in-out;
+}
+
+.neon-blue:hover, .neon-blue.active-neon {
+    background-color: cyan;
+    color: black;
+    box-shadow: 0 0 20px cyan;
+}
+
+.neon-green {
+    color: lime;
+    border: 2px solid lime;
+    background-color: transparent;
+    text-shadow: 0 0 10px lime;
+    box-shadow: 0 0 10px lime;
+    transition: all 0.3s ease-in-out;
+}
+
+.neon-green:hover, .neon-green.active-neon {
+    background-color: lime;
+    color: black;
+    box-shadow: 0 0 20px lime;
+}
+
+.neon-yellow {
+    color: gold;
+    border: 2px solid gold;
+    background-color: black;
+    text-shadow: 0 0 10px gold;
+    box-shadow: 0 0 10px gold;
+    transition: all 0.3s ease-in-out;
+}
+
+.neon-yellow:hover, .neon-yellow.active-neon {
+    background-color: gold;
+    color: black;
+    box-shadow: 0 0 20px gold;
+}
+
+.neon-yellow-outline {
+    color: gold;
+    border: 2px solid gold;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+.neon-yellow-outline:hover {
+    background-color: gold;
+    color: black;
+    box-shadow: 0 0 20px gold;
+}
+
+
+.fa-heart {
+    transition: all 0.3s ease-in-out;
+}
+
+
+.fas.fa-heart.text-neon-yellow {
+    color: gold;
+    text-shadow: 0 0 10px gold, 0 0 20px gold;
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: cyan;
+    border-radius: 10px;
+    box-shadow: 0 0 10px cyan;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 255, 0.8);
+    box-shadow: 0 0 15px cyan;
+}
+
+
+.list-group-item::-webkit-scrollbar {
+    width: 6px;
+}
+
+.list-group-item::-webkit-scrollbar-thumb {
+    background: lime;
+    border-radius: 5px;
+    box-shadow: 0 0 10px lime;
+}
+
+.list-group-item::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 0, 0.8);
+    box-shadow: 0 0 15px lime;
+}
+
+
+.neon-purple {
+    color: #b266ff;
+    border: 2px solid #b266ff;
+    background-color: transparent;
+    text-shadow: 0 0 10px #b266ff;
+    box-shadow: 0 0 10px #b266ff;
+    transition: all 0.3s ease-in-out;
+}
+
+.neon-purple:hover, .neon-purple.active-neon {
+    background-color: #b266ff;
+    color: black;
+    box-shadow: 0 0 20px #b266ff;
+}
+
+
+.neon-purple-badge {
+    background-color: #b266ff !important;
+    color: white;
+    text-shadow: 0 0 5px #b266ff;
+    box-shadow: 0 0 5px #b266ff;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+
+.neon-purple-dropdown {
+    background-color: rgba(90, 30, 150, 0.95);
+    border: 1px solid #b266ff;
+    box-shadow: 0 0 10px #b266ff;
+    z-index: 9999 !important;
+    position: absolute;
+}
+
+
+.neon-purple-dropdown .dropdown-item {
+    color: white;
+}
+
+.neon-purple-dropdown .dropdown-item:hover {
+    background-color: #b266ff;
+    color: black;
+}
+
+
+.home-image {
+    display: block;
+    margin: 20px auto;
+    border-radius: 20px;
+    border: 5px solid rgba(0, 255, 255, 0.6);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+    transition: all 0.3s ease-in-out;
+}
+
+.home-image:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 1);
+}
+
+
+.navbar-brand img {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+}
+
+.custom-h1 {
+    font-size: 3.5rem; 
+    font-weight: bold;  
+    text-transform: uppercase; 
+    color: white; 
+    text-align: center;
+    text-shadow: 0 0 10px cyan, 0 0 20px cyan; 
+    margin-bottom: 20px; 
+}
+
+
+.neon-red {
+    color: red;
+    border: 2px solid red;
+    background-color: transparent;
+    text-shadow: 0 0 10px red;
+    box-shadow: 0 0 10px red;
+    transition: all 0.3s ease-in-out;
+}
+
+.neon-red:hover {
+    background-color: red;
+    color: black;
+    box-shadow: 0 0 20px red;
+}
+
+
+.contact-block {
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 0 15px cyan !important; 
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    border: 2px solid rgba(0, 255, 255, 0.5); 
+}
+
+
+.contact-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px cyan, 0 0 50px cyan !important; 
+    border: 2px solid cyan !important;
+}
+
+
+.contact-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid cyan !important; 
+    box-shadow: 0 0 15px cyan !important; 
+}
+
+
+.clickable-favorite {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.clickable-favorite:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 10px #b266ff;
+}
