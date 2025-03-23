@@ -190,6 +190,7 @@ class PlanetFavorites(db.Model):
                  "user_id": self.user_id,
                  "planet_id": self.planet_id}
 
+
 class CharacterFavorites(db.Model):
     __tablename__ = 'character_favorites'
     id = db.Column(db.Integer, primary_key=True)
