@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			token: localStorage.getItem('token') || null,
 			demo: [
 				{
 					title: "FIRST",
@@ -178,6 +179,33 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const data = await response.json()
                 setStore({currentItemDetails: data.result.properties})
             },
+
+			login: async (email, password) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ email, password }),
+					});
+
+					const data = await response.json();
+
+					if (response.ok) {
+						localStorage.setItem("token", data.access_token);
+						setStore({ token: data.access_token, user: data.results });
+						return { success: true };
+					} else {
+						return { success: false, message: data.message || "Credenciales incorrectas" };
+					}
+				} catch (error) {
+					return { success: false, message: "Error en el servidor. Inténtalo más tarde." };
+				}
+			},
+
+			logout: () => {
+				localStorage.removeItem("token");
+				setStore({ token: null, user: null });
+			},
 
 			// Funciones vistas en clase
 			setCurrentContact: (contact) => { setStore({ currentContact: contact }) }

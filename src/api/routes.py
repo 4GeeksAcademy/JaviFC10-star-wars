@@ -7,6 +7,10 @@ from flask_cors import CORS
 from api.models import db, Users, CharacterFavorites, PlanetFavorites, Characters
 import requests
 
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt
 
 api = Blueprint('api', __name__)
 CORS(api) # Allow CORS requests to this API
@@ -82,6 +86,7 @@ def character(character_id):
 
 
 @api.route('/users', methods=['GET'])
+@jwt_required()
 def users():
     response_body = {}
     rows = db.session.execute(db.select(Users)).scalars()
@@ -171,13 +176,33 @@ def delete_favourite_planet(user_id, planet_id):
 def login():
     response_body = {}
     data = request.json
-    username = request.json.get("username", None)
+    email = data.get("email", None)
     password = data.get("password", None)
-    if username != "test" or password != "test":
-        response_body['message'] = 'Bad username or password'
+    row = db.session.execute(db.select(Users).where(Users.email == email, Users.password == password, Users.is_active)).scalar()
+    if not row:
+        response_body['message'] = "Bad username or password"
         return response_body, 401
-
-    access_token = create_access_token(identity=username)
-    response_body['message'] = 'User logged'
-    response_body['acess_token'] = access_token
+    user = row.serialize()
+    claims = {'user_id': user['id'],
+              'is_admin': user['is_admin']}
+    
+    access_token = create_access_token(identity=email, additional_claims=claims )
+    response_body['message'] = f'User {user["first_name"]} logged'
+    response_body['access_token'] = access_token
+    response_body['results'] = user
     return response_body, 200
+
+
+@api.route("/favourite-planets", methods=['GET'])
+@jwt_required()
+def fav_planets():
+    response_body = {}
+    current_user = get_jwt()
+    print("current_user", current_user)
+    user_id = current_user['user_id']
+    if request.method == 'GET':
+        rows = db.session.execute(db.select(PlanetFavorites).where(PlanetFavorites.user_id == user_id)).scalars()
+        result = [row.serialize() for row in rows]
+        response_body['message'] = f"Planetas favoritos del usuario {user_id}"
+        response_body['results'] = result
+        return response_body, 200

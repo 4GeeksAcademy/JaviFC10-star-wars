@@ -16,7 +16,11 @@ export const Navbar = () => {
             navigate("/itemdetails");
         }
     };
-
+    const handleLogout = () => {
+		actions.logout();
+		navigate("/login");
+	};
+    
     return (
         <nav className="navbar navbar-expand-md custom-navbar">
             <div className="container">
@@ -67,6 +71,14 @@ export const Navbar = () => {
                             <Link to="/contact" className="nav-link">
                                 <button className={`btn neon-green ${location.pathname === "/contact" ? "active-neon" : ""}`}>Contacts</button>
                             </Link>
+                        </li>
+                        <li className="nav-item">
+                        {store.token ? (
+						<button onClick={handleLogout} className="btn neon-red">Logout</button>
+					    ) : (
+                            <Link to="/login" className="nav-link">
+                                <button className={`btn neon-red ${location.pathname === "/login" ? "active-neon" : ""}`}>Login</button>
+                            </Link>)}
                         </li>
                     </ul>
                 </div>

@@ -17,7 +17,7 @@ import { Characters } from "./pages/Characters.jsx";
 import { StarShips } from "./pages/StarShips.jsx";
 import { Planets } from "./pages/Planets.jsx";
 import { ItemDetails } from "./pages/ItemDetails.jsx";
-import { Login } from "./pages/Login.jsx";
+import Login from "./pages/Login.jsx";
 
 //create your first component
 const Layout = () => {
